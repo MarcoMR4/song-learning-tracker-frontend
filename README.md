@@ -41,6 +41,14 @@ yarn dev
 bun run dev
 ```
 
+## Setup connection with backend: 
+
+- Create your environment file .env, you can use .env.example as a reference
+- From your supabase API, copy and paste KEY and URL 
+- Paste values on your .env file
+
+Further details on [supabase api docs](https://supabase.com/docs/guides/api)
+
 ## Production
 
 Build the application for production:
