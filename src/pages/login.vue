@@ -12,6 +12,12 @@
         <p>
             Don't have an account? <NuxtLink to="/register">Register here</NuxtLink>
         </p>
+        <p>
+            Or Sign in with Google:
+            <button @click="supabaseAuth.signInWithOAuth({ provider: 'google', options: { redirectTo: '/' } })">
+                Sign in with Google
+            </button>
+        </p>
     </div>
 </template>
 
