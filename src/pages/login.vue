@@ -8,6 +8,11 @@
             <button type="submit">Login</button>
         </form>
     </div>
+    <div>
+        <p>
+            Don't have an account? <NuxtLink to="/register">Register here</NuxtLink>
+        </p>
+    </div>
 </template>
 
 <script setup lang="ts">
