@@ -1,21 +1,25 @@
 <template>
   <div>
     <ul>
-      <li>
-        <NuxtLink to="/">Home</NuxtLink>
-      </li>
-      <li v-if="user">
-        <NuxtLink to="/protected">Protected</NuxtLink>
-      </li>
-      <li v-else>
-        <NuxtLink to="/login">Login</NuxtLink>
-      </li>
-      <li v-if="user">
-        <button @click="logout">Logout</button>
-      </li>
-      <li v-else>
-        <NuxtLink to="/register">Register</NuxtLink>
-      </li>
+      <template v-if="user">
+        <li>
+          <NuxtLink to="/">Home</NuxtLink>
+        </li>
+        <li>
+          <NuxtLink to="/protected">Protected</NuxtLink>
+        </li>
+        <li>
+          <button @click="logout">Logout</button>
+        </li>
+      </template>
+      <template v-else>
+        <li>
+          <NuxtLink to="/login">Login</NuxtLink>
+        </li>
+        <li>
+          <NuxtLink to="/register">Register</NuxtLink>
+        </li>
+      </template>
     </ul>
     <NuxtPage />
   </div>

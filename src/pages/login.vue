@@ -31,6 +31,7 @@ const login = async () => {
         alert('Login failed: ' + error.message);
     } else {
         console.log('Login successful');
+        navigateTo('/');
     }
 };
 
