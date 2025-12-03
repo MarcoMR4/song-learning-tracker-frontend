@@ -23,6 +23,11 @@ export const quasarComponents = [
   'QCardSection',
   'QCardActions',
   'QImg',
+  'QDrawer',
+  'QList',
+  'QItem',
+  'QItemSection',
+  'QSpace'
 ]
 
 export const quasarPlugins = [

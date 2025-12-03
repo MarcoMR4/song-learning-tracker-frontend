@@ -24,6 +24,10 @@
 
 <script setup lang="ts">
 
+definePageMeta({
+  layout: 'default'
+});
+
 const supabaseAuth = useSupabaseClient().auth;
 
 const credentials = reactive({
