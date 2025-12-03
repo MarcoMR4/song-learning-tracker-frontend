@@ -15,7 +15,11 @@ export const quasarComponents = [
   'QToggle',
   'QSpinner',
   'QBadge',
-  'QSeparator'
+  'QSeparator',
+  'QLayout',
+  'QHeader',
+  'QFooter',
+  'QPageContainer'
 ]
 
 export const quasarPlugins = [
