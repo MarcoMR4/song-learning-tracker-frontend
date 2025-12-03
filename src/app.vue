@@ -27,21 +27,34 @@
 
 <script setup lang="ts">
 
-const user = useSupabaseUser(); 
+import { Notify } from 'quasar'
 
+const user = useSupabaseUser(); 
 const supabaseAuth = useSupabaseClient().auth;
 
+function showNotification() {
+  Notify.create({
+    message: 'Session closed successfully',
+    color: 'negative',
+    position: 'bottom',
+    timeout: 2000
+  })
+}
+
 const logout = async () => {
-    const { error } = await supabaseAuth.signOut();
-    if (error) {
-        console.error('Logout error:', error.message);
-        alert('Logout failed: ' + error.message);
-    } 
-    else {
-        console.log('Logout successful');
-        alert('Logout successful!');
-        return navigateTo('/login');
-    }
+  const { error } = await supabaseAuth.signOut();
+  if (error) {
+    console.error('Logout error:', error.message);
+    alert('Logout failed: ' + error.message);
+  } 
+  else {
+    showNotification();
+    console.log('Logout successful');
+    alert('Logout successful!');
+    setTimeout(() => {
+      navigateTo('/login');
+    }, 2500);
+  }
 };
 
 </script>

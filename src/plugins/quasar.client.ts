@@ -1,26 +1,14 @@
 import { defineNuxtPlugin } from '#app'
-import {
-  Quasar,
-  QBtn,
-  QTable,
-  QIcon,
-  Notify,
-  Dialog
-} from 'quasar'
+import { Quasar } from 'quasar'
+import { quasarComponents, quasarPlugins, loadQuasar } from '~/utils/quasar'
 
+// Estilos globales
 import 'quasar/dist/quasar.css'
 import '@quasar/extras/material-icons/material-icons.css'
 
-export default defineNuxtPlugin(nuxtApp => {
+export default defineNuxtPlugin((nuxtApp) => {
   nuxtApp.vueApp.use(Quasar, {
-    components: {
-      QBtn,
-      QTable,
-      QIcon
-    },
-    plugins: {
-      Notify,
-      Dialog
-    }
+    components: loadQuasar(quasarComponents),
+    plugins: loadQuasar(quasarPlugins)
   })
 })
