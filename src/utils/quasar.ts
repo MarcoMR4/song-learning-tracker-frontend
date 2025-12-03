@@ -19,7 +19,10 @@ export const quasarComponents = [
   'QLayout',
   'QHeader',
   'QFooter',
-  'QPageContainer'
+  'QPageContainer',
+  'QCardSection',
+  'QCardActions',
+  'QImg',
 ]
 
 export const quasarPlugins = [

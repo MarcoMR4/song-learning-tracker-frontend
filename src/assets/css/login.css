@@ -1,0 +1,39 @@
+ .my-card {
+    min-height: 85vh;
+    min-width: 35vw;
+    display: flex;
+    flex-direction: column;
+}
+
+@media (max-width: 599px) {
+    .my-card {
+        width: 100vw;
+        height: 100vh;
+        min-height: 100vh;
+        max-height: 100vh;
+        border-radius: 0;
+    }
+    .my-language-selector {
+        margin-bottom: 10% ;
+    }
+}
+
+.container {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.back {
+    color: #496426; 
+    text-decoration: none;
+}
+.q-btn {
+    font-weight: bold;
+}
+.q-card-section {
+    padding: 20px;
+}
+.q-btn, .container{
+    text-transform: none;
+}

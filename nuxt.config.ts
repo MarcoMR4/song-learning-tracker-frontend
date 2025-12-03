@@ -26,7 +26,8 @@ export default defineNuxtConfig({
   css: [
     'quasar/dist/quasar.css',
     '@quasar/extras/material-icons/material-icons.css',
-    '~/assets/css/quasar-theme.css'
+    '~/assets/css/quasar-theme.css',
+    '~/assets/css/login.css'
   ],
 
   build: {
