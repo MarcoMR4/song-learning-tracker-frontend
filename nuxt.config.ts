@@ -4,7 +4,7 @@ export default defineNuxtConfig({
     head: {
       title: 'Song Learning Tracker frontend',
       link: [
-        { rel: 'icon', type: 'image/png', href: '/images/logo3.webp' }
+        { rel: 'icon', type: 'image/png', href: '/images/logo1.webp' }
       ]
     }
   },
