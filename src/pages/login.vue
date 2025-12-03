@@ -5,7 +5,7 @@
         <form @submit.prevent="login">
             <input type="email" placeholder="Email" v-model="credentials.email">
             <input type="password" placeholder="Password" v-model="credentials.password">
-            <button type="submit">Login</button>
+            <q-btn type="submit" label="Login" color="secondary" unelevated />
         </form>
     </div>
     <div>

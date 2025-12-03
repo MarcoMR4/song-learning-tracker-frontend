@@ -4,7 +4,7 @@ export default defineNuxtConfig({
     head: {
       title: 'Song Learning Tracker frontend',
       link: [
-        { rel: 'icon', type: 'image/png', href: '/images/logo2.webp' }
+        { rel: 'icon', type: 'image/png', href: '/images/logo3.webp' }
       ]
     }
   },
@@ -25,7 +25,8 @@ export default defineNuxtConfig({
 
   css: [
     'quasar/dist/quasar.css',
-    '@quasar/extras/material-icons/material-icons.css'
+    '@quasar/extras/material-icons/material-icons.css',
+    '~/assets/css/quasar-theme.css'
   ],
 
   build: {
