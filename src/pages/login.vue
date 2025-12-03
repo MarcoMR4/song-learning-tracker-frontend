@@ -1,6 +1,6 @@
 <template>
     <div>
-        <h1>Login</h1>
+        <h1 class="q-pa-lg">Login</h1>
         <p>Please enter your credentials to log in.</p>
         <form @submit.prevent="login">
             <input type="email" placeholder="Email" v-model="credentials.email">

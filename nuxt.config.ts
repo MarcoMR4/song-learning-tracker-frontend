@@ -8,12 +8,28 @@ export default defineNuxtConfig({
       ]
     }
   },
+
+  ssr: false,
+
   srcDir: 'src/', 
+
   modules: [
-    "@nuxtjs/supabase"
+    '@nuxtjs/supabase'
   ],
+  
   supabase: {
     redirect: false
   },
-  compatibilityDate: '2025-11-01'
+
+  compatibilityDate: '2025-11-01',
+
+  css: [
+    'quasar/dist/quasar.css',
+    '@quasar/extras/material-icons/material-icons.css'
+  ],
+
+  build: {
+    transpile: ['quasar']
+  },
+
 })
