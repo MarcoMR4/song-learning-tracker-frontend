@@ -2,7 +2,7 @@
     <div class="container bg-primary q-pa-none">
         <AuthCard>
             <template #form>
-                <q-form @submit.prevent="register">
+                <q-form @submit.prevent="registerUser">
                 <q-input filled v-model="credentials.email" label="email" type="email" required class="q-mb-md" />
                 <q-input filled v-model="credentials.password" label="password" type="password" required class="q-mb-md" />
                 <q-input filled v-model="credentials.confirm" label="confirm password" type="password" required class="q-mb-md" />
@@ -28,25 +28,20 @@
 
 const supabaseAuth = useSupabaseClient().auth;
 
+const { register} = useAuth();
+
 const credentials = reactive({
     email: '',
     password: '',
     confirm: ''
 });
 
-const register = async () => {
+const registerUser = async () => {
     if (credentials.password !== credentials.confirm) {
         alert('Passwords do not match');
         return;
     }
-    const { error } = await supabaseAuth.signUp({ email: credentials.email, password: credentials.password });
-    if (error) {
-        console.error('Register error:', error.message);
-        alert('Registration failed: ' + error.message);
-    } else {
-        console.log('Registration successful');
-        navigateTo('/login');
-    }
+    await register(credentials.email, credentials.password);
 };
 
 </script>

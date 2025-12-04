@@ -39,9 +39,9 @@
 
       <q-separator color="white" style="height: 1px;" /> 
     
-      <q-item clickable @click="logout">
+      <q-item clickable @click="logoutUser">
         <q-item-section avatar>
-          <q-icon name="mdi-logout" />
+          <q-icon name="mdi-logoutUser" />
         </q-item-section>
         <q-item-section> Logout </q-item-section>
       </q-item>
@@ -53,48 +53,38 @@
   
 <script setup lang="ts">
 
-  import { Dialog } from 'quasar'
-  const drawerStore = useDrawerStore(); 
+import { Dialog } from 'quasar'
+const drawerStore = useDrawerStore(); 
+const { logout } = useAuth();
 
-  const drawerOpen = ref(true);
 
-  const updateDrawerOpen = (val: boolean) => {
-    drawerStore.toggleDrawer(); 
-  }
+const updateDrawerOpen = (val: boolean) => {
+  drawerStore.toggleDrawer(); 
+}
 
-  const logout = () => {
-    showLogoutDialog();
-  }
+const logoutUser = () => {
+  showLogoutDialog();
+}
 
-  const showLogoutDialog = () => {
-    Dialog.create({
-      title: 'Logout',
-      message: 'Are you sure you want to logout?',
-      cancel: {
-        label: 'Cancel',
-        color: 'primary'
-      },
-      ok: {
-        label: 'Logout',
-        color: 'negative'
-      }
-    })
-    .onOk(() => handleLogout())
-  }
-
-  const supabaseAuth = useSupabaseClient().auth;
-
-  const handleLogout = async () => {
-    const { error } = await supabaseAuth.signOut();
-    if (error) {
-      console.error('Logout error:', error.message);
-      alert('Logout failed: ' + error.message);
-    } 
-    else {
-      console.log('Logout successful');
-      navigateTo('/');
+const showLogoutDialog = () => {
+  Dialog.create({
+    title: 'Logout',
+    message: 'Are you sure you want to logoutUser?',
+    cancel: {
+      label: 'Cancel',
+      color: 'primary'
+    },
+    ok: {
+      label: 'Logout',
+      color: 'negative'
     }
-  };
+  })
+  .onOk(() => handleLogout())
+}
+
+const handleLogout = async () => {
+  await logout();
+};
 
 </script>
 

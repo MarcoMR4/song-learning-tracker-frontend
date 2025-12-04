@@ -18,9 +18,7 @@
           />
         </client-only>
       </div>
-
       <q-space />
-      
     </q-toolbar>
   </q-header>
 </template>

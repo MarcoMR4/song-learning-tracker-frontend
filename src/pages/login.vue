@@ -2,7 +2,7 @@
     <div class="container bg-primary q-pa-none">
         <AuthCard>
             <template #form>
-                <q-form @submit.prevent="login">
+                <q-form @submit.prevent="loginUser">
                 <q-input filled v-model="credentials.email" label="email" type="email" required class="q-mb-md" />
                 <q-input filled v-model="credentials.password" label="password" type="password" required class="q-mb-md" />
                 <q-btn label="Login" type="submit" color="primary" class="full-width q-my-md" />
@@ -28,22 +28,15 @@ definePageMeta({
   layout: 'default'
 });
 
-const supabaseAuth = useSupabaseClient().auth;
+const { login } = useAuth();
 
 const credentials = reactive({
     email: '',
     password: ''
 });
 
-const login = async () => {
-    const { error } = await supabaseAuth.signInWithPassword({ email: credentials.email, password: credentials.password });
-    if (error) {
-        console.error('Login error:', error.message);
-        alert('Login failed: ' + error.message);
-    } else {
-        console.log('Login successful');
-        navigateTo('/');
-    }
+const loginUser = async () => {
+   await login(credentials.email, credentials.password);
 };
 
 </script>
