@@ -1,7 +1,10 @@
 <template>
     <div>
-        <h1>Welcome to the Song Learning Tracker</h1>
-        <p>Use the navigation to explore the app.</p>
+        <h1>Song Tracking</h1>
+    </div>
+     <div>
+      <q-btn color="primary" label="Test" />
+      <q-table :rows="[]" :columns="[]" />
     </div>
 </template>
 

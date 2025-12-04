@@ -1,44 +1,42 @@
 <template>
-    <div>
-        <h1>Login</h1>
-        <p>Please enter your credentials to log in.</p>
-        <form @submit.prevent="login">
-            <input type="email" placeholder="Email" v-model="credentials.email">
-            <input type="password" placeholder="Password" v-model="credentials.password">
-            <button type="submit">Login</button>
-        </form>
-    </div>
-    <div>
-        <p>
-            Don't have an account? <NuxtLink to="/register">Register here</NuxtLink>
-        </p>
-        <p>
-            Or Sign in with Google:
-            <button @click="supabaseAuth.signInWithOAuth({ provider: 'google', options: { redirectTo: '/' } })">
-                Sign in with Google
-            </button>
-        </p>
+    <div class="container bg-primary q-pa-none">
+        <AuthCard>
+            <template #form>
+                <q-form @submit.prevent="loginUser">
+                <q-input filled v-model="credentials.email" label="email" type="email" required class="q-mb-md" />
+                <q-input filled v-model="credentials.password" label="password" type="password" required class="q-mb-md" />
+                <q-btn label="Login" type="submit" color="primary" class="full-width q-my-md" />
+                </q-form>
+            </template>
+
+            <template #footer>
+                <q-btn
+                label="Create an account"
+                color="white"
+                flat
+                class="full-width bg-secondary"
+                :to="{ path: '/register' }"
+                />
+            </template>
+        </AuthCard>
     </div>
 </template>
 
 <script setup lang="ts">
 
-const supabaseAuth = useSupabaseClient().auth;
+definePageMeta({
+  layout: 'default'
+});
+
+const { login } = useAuth();
 
 const credentials = reactive({
     email: '',
     password: ''
 });
 
-const login = async () => {
-    const { error } = await supabaseAuth.signInWithPassword({ email: credentials.email, password: credentials.password });
-    if (error) {
-        console.error('Login error:', error.message);
-        alert('Login failed: ' + error.message);
-    } else {
-        console.log('Login successful');
-        navigateTo('/');
-    }
+const loginUser = async () => {
+   await login(credentials.email, credentials.password);
 };
 
 </script>
