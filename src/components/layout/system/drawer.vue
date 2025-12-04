@@ -53,9 +53,15 @@
   
 <script setup lang="ts">
 
-import { Dialog } from 'quasar'
 const drawerStore = useDrawerStore(); 
+
 const { logout } = useAuth();
+
+const {
+  confirmAction,
+  showError,
+  showSuccess
+} = useQuasarUi();
 
 
 const updateDrawerOpen = (val: boolean) => {
@@ -63,28 +69,24 @@ const updateDrawerOpen = (val: boolean) => {
 }
 
 const logoutUser = () => {
-  showLogoutDialog();
+  handleLogoutConfirm();
 }
 
-const showLogoutDialog = () => {
-  Dialog.create({
-    title: 'Logout',
-    message: 'Are you sure you want to logoutUser?',
-    cancel: {
-      label: 'Cancel',
-      color: 'primary'
-    },
-    ok: {
-      label: 'Logout',
-      color: 'negative'
+const handleLogoutConfirm = () => {
+  confirmAction('Logout', 'Are you sure you want to logout?')
+  .onOk(async () => {
+    try {
+      await handleConfirmedLogout();
+    } 
+    catch (err: any) {
+      showError(err.message)
     }
   })
-  .onOk(() => handleLogout())
 }
 
-const handleLogout = async () => {
+const handleConfirmedLogout = async () => {
   await logout();
-};
+}
 
 </script>
 

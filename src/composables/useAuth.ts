@@ -2,14 +2,22 @@ export function useAuth() {
 
     const supabaseAuth = useSupabaseClient().auth;
 
+    const {
+        showError,
+        showSuccess
+    } = useQuasarUi();
+
     const login = async (email: string, password: string) => {
         const { error } = await supabaseAuth.signInWithPassword({ email, password });
         if (error) {
             console.error('Login error:', error.message);
-            alert('Login failed: ' + error.message);
+            showError('Login failed: ' + error.message);
         } else {
             console.log('Login successful');
-            navigateTo('/');
+            showSuccess('Welcome!');
+            setTimeout(() => {
+                navigateTo('/');
+            }, 3000);
         }
     };
 
@@ -17,9 +25,10 @@ export function useAuth() {
         const { error } = await supabaseAuth.signUp({ email, password });
         if (error) {
             console.error('Register error:', error.message);
-            alert('Registration failed: ' + error.message);
+            showError('Registration failed: ' + error.message);
         } else {
             console.log('Registration successful');
+            showSuccess('Registration successful!');
             navigateTo('/login');
         }
     };
@@ -28,11 +37,15 @@ export function useAuth() {
         const { error } = await supabaseAuth.signOut();
         if (error) {
             console.error('Logout error:', error.message);
-            alert('Logout failed: ' + error.message);
+            showError('Logout failed: ' + error.message);
         } 
         else {
             console.log('Logout successful');
-            navigateTo('/login');
+            showSuccess('Logged out successfully');
+            setTimeout(() => {
+                navigateTo('/login');
+            }, 3000);
+           
         }
     };  
 
