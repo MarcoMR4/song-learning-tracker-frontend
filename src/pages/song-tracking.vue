@@ -1,6 +1,6 @@
 <template>
     <div>
-        <h1>Protected page for Song Learning Tracker</h1>
+        <h1>Song Tracking</h1>
     </div>
      <div>
       <q-btn color="primary" label="Test" />

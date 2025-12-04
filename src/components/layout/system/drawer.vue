@@ -24,16 +24,56 @@
            Home
         </q-item-section>
       </q-item>
+
       <q-item 
         class="q-item-label clickable" 
         active-class="q-item-active"
-        to="/protected"
+        to=""
       >
         <q-item-section avatar>
-          <span class="material-icons text-h5">person</span>
+          <span class="material-icons text-h5">bar_chart</span>
         </q-item-section>
         <q-item-section>
-           Protected Page
+          Dashboard
+        </q-item-section>
+      </q-item>
+      
+      <q-item 
+        class="q-item-label clickable" 
+        active-class="q-item-active"
+        to="/song-tracking"
+      >
+        <q-item-section avatar>
+          <span class="material-icons text-h5">moving</span>
+        </q-item-section>
+        <q-item-section>
+          Song Tracking
+        </q-item-section>
+      </q-item>
+
+      <q-item 
+        class="q-item-label clickable" 
+        active-class="q-item-active"
+        to=""
+      >
+        <q-item-section avatar>
+          <span class="material-icons text-h5">library_music</span>
+        </q-item-section>
+        <q-item-section>
+          My Songs to Learn
+        </q-item-section>
+      </q-item>
+
+      <q-item 
+        class="q-item-label clickable" 
+        active-class="q-item-active"
+        to=""
+      >
+        <q-item-section avatar>
+          <span class="material-icons text-h5">piano</span>
+        </q-item-section>
+        <q-item-section>
+          My Music Instruments
         </q-item-section>
       </q-item>
 

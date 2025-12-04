@@ -18,7 +18,9 @@
           />
         </client-only>
       </div>
-      <q-space />
+
+      <span class="text-h6">Song Learning Tracker</span>
+
     </q-toolbar>
   </q-header>
 </template>
