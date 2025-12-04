@@ -81,7 +81,7 @@
     
       <q-item clickable @click="logoutUser">
         <q-item-section avatar>
-          <q-icon name="mdi-logoutUser" />
+          <span class="material-icons text-h5">logout</span>
         </q-item-section>
         <q-item-section> Logout </q-item-section>
       </q-item>
