@@ -27,6 +27,10 @@
 
 <script setup lang="ts">    
 
-const toggleDrawer = () => {};
+const drawerStore = useDrawerStore(); 
+
+const toggleDrawer = () => {
+  drawerStore.toggleDrawer();
+};
 
 </script>

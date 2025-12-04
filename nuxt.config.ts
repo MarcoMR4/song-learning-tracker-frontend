@@ -14,7 +14,8 @@ export default defineNuxtConfig({
   srcDir: 'src/', 
 
   modules: [
-    '@nuxtjs/supabase'
+    '@nuxtjs/supabase',
+    '@pinia/nuxt',
   ],
   
   supabase: {

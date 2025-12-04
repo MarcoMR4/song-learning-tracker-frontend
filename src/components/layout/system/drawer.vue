@@ -1,7 +1,7 @@
 <template>
   <client-only>
     <q-drawer
-      :model-value="drawerOpen"
+      :model-value="drawerStore.drawerOpen"
       @update:model-value="updateDrawerOpen"
       show-if-above
       persistent
@@ -12,8 +12,18 @@
       elevated
     >
     <q-list class="p-mt-lg">
-
-      <!-- Siempre visibles -->
+      <q-item 
+        class="q-item-label clickable" 
+        active-class="q-item-active"
+        to="/"
+      >
+        <q-item-section avatar>
+          <span class="material-icons text-h5">home</span>
+        </q-item-section>
+        <q-item-section>
+           Home
+        </q-item-section>
+      </q-item>
       <q-item 
         class="q-item-label clickable" 
         active-class="q-item-active"
@@ -27,7 +37,7 @@
         </q-item-section>
       </q-item>
 
-      <q-separator color="white" style="height: 1.1px;" /> 
+      <q-separator color="white" style="height: 1px;" /> 
     
       <q-item clickable @click="logout">
         <q-item-section avatar>
@@ -44,11 +54,12 @@
 <script setup lang="ts">
 
   import { Dialog } from 'quasar'
+  const drawerStore = useDrawerStore(); 
 
   const drawerOpen = ref(true);
 
   const updateDrawerOpen = (val: boolean) => {
-    drawerOpen.value = val
+    drawerStore.toggleDrawer(); 
   }
 
   const logout = () => {
