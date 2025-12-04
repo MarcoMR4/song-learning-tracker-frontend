@@ -26,9 +26,8 @@
 
 <script setup lang="ts">
 
-const supabaseAuth = useSupabaseClient().auth;
-
 const { register} = useAuth();
+const { showError } = useQuasarUi();
 
 const credentials = reactive({
     email: '',
@@ -38,7 +37,7 @@ const credentials = reactive({
 
 const registerUser = async () => {
     if (credentials.password !== credentials.confirm) {
-        alert('Passwords do not match');
+        showError('Passwords do not match');
         return;
     }
     await register(credentials.email, credentials.password);
