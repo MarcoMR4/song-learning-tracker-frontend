@@ -54,7 +54,7 @@
       <q-item 
         class="q-item-label clickable" 
         active-class="q-item-active"
-        to=""
+        to="/my-songs"
       >
         <q-item-section avatar>
           <span class="material-icons text-h5">library_music</span>
