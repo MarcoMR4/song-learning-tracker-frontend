@@ -11,7 +11,7 @@ A modern web application to track and manage your song learning progress, built 
 
 - **Framework**: Nuxt 4.2.1
 - **UI Library**: Quasar 2.18.6
-- **Backend**: Supabase (@nuxtjs/supabase 2.0.3)
+- **Backend**: Supabase (@nuxtjs/supabase 2.0.2)
 - **State Management**: Pinia 3.0.4
 - **Build Tool**: Vite 7.2.6
 - **Package Manager**: npm (standardized)

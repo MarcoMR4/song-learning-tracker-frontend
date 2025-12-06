@@ -12,7 +12,7 @@ ACTUALIZACIONES REALIZADAS
 ================================================================================
 
 1. DEPENDENCIAS ACTUALIZADAS
-   - @nuxtjs/supabase: 2.0.1 → 2.0.3
+   - @nuxtjs/supabase: 2.0.1 → 2.0.2
    - Instalación: 0 vulnerabilidades encontradas
    - 8 paquetes añadidos
    - 15 paquetes removidos
@@ -53,7 +53,6 @@ VALIDACIÓN DE FUNCIONALIDAD
 ================================================================================
 
 ✅ AUTENTICACIÓN SUPABASE
-   Credenciales probadas: prueba1@mail.com / 12321
    Resultado: Login exitoso
    Flujo verificado:
    - Formulario acepta credenciales
@@ -89,7 +88,7 @@ UI Framework:
    - @quasar/extras: 1.17.0 ✅ Estable
 
 Backend & Estado:
-   - @nuxtjs/supabase: 2.0.3 ✅ Actualizado
+   - @nuxtjs/supabase: 2.0.2 ✅ Actualizado
    - Pinia: 3.0.4 ✅ Estable
    - @pinia/nuxt: 0.11.3 ✅ Estable
 
@@ -161,7 +160,7 @@ Consola del navegador (http://localhost:3005):
 Instalación npm:
    - Tiempo: ~2 minutos
    - Resultado: 0 vulnerabilities ✅
-   - Versión instalada: @nuxtjs/supabase@2.0.3 ✅
+   - Versión instalada: @nuxtjs/supabase@2.0.2 ✅
 
 Git status:
    - Archivos modificados: package.json
