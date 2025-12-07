@@ -37,12 +37,12 @@
         <q-item
           class="q-item-label clickable"
           active-class="q-item-active"
-          to="/song-tracking"
+          to="/song-learning-tracking"
         >
           <q-item-section avatar>
             <span class="material-icons text-h5">moving</span>
           </q-item-section>
-          <q-item-section> Song Tracking </q-item-section>
+          <q-item-section> Song Learning Tracking </q-item-section>
         </q-item>
 
         <q-item
