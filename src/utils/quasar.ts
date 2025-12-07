@@ -37,6 +37,10 @@ export const quasarPlugins = [
   'Loading'
 ]
 
+export const quasarDirectives = [
+  'ClosePopup'
+]
+
 // Función auxiliar para cargar los objetos reales desde Quasar
 export function loadQuasar(list: string[]) {
   const out: Record<string, any> = {}

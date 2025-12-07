@@ -14,6 +14,20 @@
         </div>
       </template>
     </q-table>
+
+    <general-dialog
+      v-model="dialogOpen"
+      title="Add New Instrument"
+      show-cancel
+      show-save
+      @cancel="dialogOpen = false"
+      @save="saveInstrument"
+    >
+      <div class="q-gutter-md">
+        <q-input v-model="form.name" label="Name" outlined />
+        <q-input v-model="form.notes" label="Notes" type="textarea" outlined />
+      </div>
+    </general-dialog>
   </div>
 </template>
 
@@ -21,6 +35,7 @@
 import { ref } from "vue";
 import { type QTableColumn } from "quasar";
 import TableHeader from "@/components/shared/tableHeader.vue";
+import GeneralDialog from "@/components/shared/generalDialog.vue";
 
 definePageMeta({
   middleware: "auth",
@@ -28,6 +43,11 @@ definePageMeta({
 });
 
 const rows = ref([]);
+const dialogOpen = ref(false);
+const form = reactive({
+  name: "",
+  notes: "",
+});
 
 const columns: QTableColumn[] = [
   { name: "name", label: "Name", field: "name", align: "left", sortable: true },
@@ -41,6 +61,13 @@ const columns: QTableColumn[] = [
 ];
 
 const addNewInstrument = () => {
-  console.log("Add new instrument");
+  form.name = "";
+  form.notes = "";
+  dialogOpen.value = true;
+};
+
+const saveInstrument = () => {
+  console.log("Saving instrument:", form);
+  dialogOpen.value = false;
 };
 </script>
