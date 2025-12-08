@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="q-pa-sm">
     <q-form ref="formRef" @submit.prevent="onSubmit">
       <template v-for="field in fields" :key="field.name">
         <component
@@ -19,16 +19,12 @@
           </template>
         </component>
       </template>
-      <slot name="actions">
-        <q-btn type="submit" color="primary" label="Guardar" class="q-mt-md" />
-      </slot>
     </q-form>
   </div>
 </template>
 
 <script setup lang="ts">
 import { QInput, QSelect, QField } from 'quasar';
-import { ref, reactive, watch, nextTick } from 'vue';
 import { useQuasarUi } from '~/composables/useQuasarUi';
 
 interface FieldDef {
@@ -36,6 +32,7 @@ interface FieldDef {
   type: string; // 'input', 'select', 'QInput', 'QSelect', etc.
   props?: Record<string, any>;
   options?: any[]; // Para selects
+  required?: boolean;
 }
 
 const props = defineProps<{
@@ -90,26 +87,34 @@ function getRules(field: FieldDef) {
   return rules;
 }
 
-async function onSubmit() {
-  // Validación global del formulario
-  const valid = await formRef.value?.validate?.();
-  if (valid) {
-    emit('submit', { ...formData });
-    emit('update:modelValue', { ...formData });
-    return;
-  }
-  // Si falla, validar cada campo individualmente
-  await nextTick();
-  for (const field of props.fields) {
-    const refField = fieldRefs[field.name];
-    if (refField && refField.validate) {
-      const res = await refField.validate();
-      if (res !== true) {
-        console.error(`Field required failed: ${field.name}`, res);
-        showError(typeof res === 'string' ? res : `Field ${field.name} is invalid`);
-        break;
-      }
+async function validateForm() {
+    // Validación global del formulario
+    const valid = await formRef.value?.validate?.();
+    if (valid) {
+        return true;
     }
-  }
+    // Si falla, validar cada campo individualmente
+    await nextTick();
+    for (const field of props.fields) {
+        const refField = fieldRefs[field.name];
+        if (refField && refField.validate) {
+            const res = await refField.validate();
+            if (res !== true) {
+                console.error(`Field required failed: ${field.name}`, res);
+            }
+        }
+    }
+    showError('Please fill all the required fields.');
+    return false;
 }
+
+async function onSubmit() {
+    const result = await validateForm();
+    if (result) {
+        return { valid: true, data: { ...formData } };
+    }
+    return { valid: false };
+}
+
+defineExpose({ onSubmit });
 </script>

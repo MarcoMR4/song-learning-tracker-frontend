@@ -21,21 +21,22 @@
       show-cancel
       show-save
       @cancel="dialogOpen = false"
-      @save="saveInstrument"
+      @save="onGeneralFormSubmit"
     >
-      <div class="q-gutter-md">
-        <q-input v-model="form.name" label="Name" outlined />
-        <q-input v-model="form.notes" label="Notes" type="textarea" outlined />
-      </div>
+      <general-form
+        ref="generalFormRef"
+        :fields="instrumentFields"
+      />
     </general-dialog>
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref } from "vue";
+import { ref, reactive } from "vue";
 import { type QTableColumn } from "quasar";
 import TableHeader from "@/components/shared/tableHeader.vue";
 import GeneralDialog from "@/components/shared/generalDialog.vue";
+import GeneralForm from "@/components/shared/generalForm.vue";
 
 definePageMeta({
   middleware: "auth",
@@ -44,13 +45,36 @@ definePageMeta({
 
 const rows = ref([]);
 const dialogOpen = ref(false);
-const form = reactive({
-  name: "",
-  notes: "",
-});
+
+const instrumentFields = [
+  {
+    name: "name",
+    type: "QInput",
+    props: {
+      label: "Name",
+      outlined: true,
+      required: true,
+    },
+  },
+  {
+    name: "notes",
+    type: "QInput",
+    props: {
+      label: "Notes",
+      type: "textarea",
+      outlined: true,
+    },
+  },
+];
 
 const columns: QTableColumn[] = [
-  { name: "name", label: "Name", field: "name", align: "left", sortable: true },
+  { name: "name", 
+    label: "Name", 
+    field: "name", 
+    align: "left", 
+    sortable: true,
+    required: true,
+  },
   {
     name: "notes",
     label: "Notes",
@@ -60,14 +84,18 @@ const columns: QTableColumn[] = [
   },
 ];
 
-const addNewInstrument = () => {
-  form.name = "";
-  form.notes = "";
+const generalFormRef = ref();
+
+function addNewInstrument() {
   dialogOpen.value = true;
 };
 
-const saveInstrument = () => {
-  console.log("Saving instrument:", form);
-  dialogOpen.value = false;
-};
+async function onGeneralFormSubmit() {
+  // Validar el formulario manualmente usando la función expuesta
+  const result = await generalFormRef.value?.onSubmit();
+  if (result?.valid && result.data) {
+    console.log("Instrument data submitted:", result.data);
+    dialogOpen.value = false;
+  }
+}
 </script>
