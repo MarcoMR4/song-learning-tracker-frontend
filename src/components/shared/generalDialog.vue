@@ -2,6 +2,7 @@
   <q-dialog
     :model-value="modelValue"
     @update:model-value="$emit('update:modelValue', $event)"
+    persistent
   >
     <q-card
       style="
@@ -13,7 +14,7 @@
         flex-direction: column;
       "
     >
-      <q-card-section class="row items-center q-pb-none text-primary">
+      <q-card-section class="row items-center q-py-md text-primary">
         <div class="text-h6">{{ title }}</div>
         <q-space />
         <q-btn
@@ -26,6 +27,8 @@
         />
       </q-card-section>
 
+      <q-separator />
+
       <q-card-section class="col q-pt-md scroll">
         <slot></slot>
       </q-card-section>
@@ -34,7 +37,7 @@
 
       <q-card-actions
         align="right"
-        class="bg-grey-1"
+        class="q-pa-md"
         v-if="showCancel || showSave"
       >
         <q-btn
@@ -49,7 +52,7 @@
           v-if="showSave"
           flat
           :label="saveLabel"
-          color="primary"
+          class="bg-primary text-white"
           @click="$emit('save')"
         />
       </q-card-actions>
