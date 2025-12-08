@@ -32,11 +32,14 @@
 </template>
 
 <script setup lang="ts">
-import { ref, reactive } from "vue";
+
+import { ref } from "vue";
 import { type QTableColumn } from "quasar";
 import TableHeader from "@/components/shared/tableHeader.vue";
 import GeneralDialog from "@/components/shared/generalDialog.vue";
 import GeneralForm from "@/components/shared/generalForm.vue";
+
+import { createMusicInstrument, getMusicInstruments } from '@/services/supabase/musicInstrumentService';
 
 definePageMeta({
   middleware: "auth",
@@ -45,6 +48,10 @@ definePageMeta({
 
 const rows = ref([]);
 const dialogOpen = ref(false);
+const { 
+  showError, 
+  showSuccess 
+} = useQuasarUi();
 
 const instrumentFields = [
   {
@@ -57,18 +64,20 @@ const instrumentFields = [
     },
   },
   {
-    name: "notes",
+    name: "observations",
     type: "QInput",
     props: {
-      label: "Notes",
+      label: "Observations",
       type: "textarea",
       outlined: true,
+      required: false
     },
   },
 ];
 
 const columns: QTableColumn[] = [
-  { name: "name", 
+  { 
+    name: "name", 
     label: "Name", 
     field: "name", 
     align: "left", 
@@ -76,9 +85,9 @@ const columns: QTableColumn[] = [
     required: true,
   },
   {
-    name: "notes",
-    label: "Notes",
-    field: "notes",
+    name: "observations",
+    label: "Observations",
+    field: "observations",
     align: "left",
     sortable: true,
   },
@@ -88,14 +97,35 @@ const generalFormRef = ref();
 
 function addNewInstrument() {
   dialogOpen.value = true;
-};
+}
+
+async function refreshInstruments() {
+  const data  = await getMusicInstruments();
+  rows.value = data;
+}
+
+onMounted(refreshInstruments);
 
 async function onGeneralFormSubmit() {
   // Validar el formulario manualmente usando la función expuesta
   const result = await generalFormRef.value?.onSubmit();
   if (result?.valid && result.data) {
-    console.log("Instrument data submitted:", result.data);
-    dialogOpen.value = false;
+    try {
+      const { error } = await createMusicInstrument(result.data);
+      if (error) {
+        console.error('Error creating instrument:', error.message);
+        showError('Unexpected error has occurred.');
+      } else {
+        showSuccess('Instrument created successfully');
+        refreshInstruments();
+        setTimeout(()=> {
+          dialogOpen.value = false;
+        },2400);
+      }
+    } catch (e) {
+      console.error('Unexpected error:', e);
+      showError('Unexpected error has occurred.');
+    }
   }
 }
 </script>
