@@ -6,7 +6,7 @@
       btn-icon="add"
       @click="addNewSong"
     />
-    <q-table :rows="fetchedSongs" :columns="columns" row-key="id">
+    <q-table :rows="songs" :columns="columns" row-key="id" :loading="isLoading">
       <template v-slot:no-data>
         <div class="full-width row flex-center text-accent q-gutter-sm">
           <q-icon size="2em" name="sentiment_dissatisfied" />
@@ -37,11 +37,7 @@ import { type QTableColumn } from "quasar";
 import TableHeader from "@/components/shared/tableHeader.vue";
 import GeneralDialog from "@/components/shared/generalDialog.vue";
 import GeneralForm from "@/components/shared/generalForm.vue";
-import { 
-  getSongs, 
-  createSong 
-} from "@/services/supabase/songService";
-import { useQuasarUi } from '@/composables/useQuasarUi';
+import { useSongCrud } from "@/composables/useSongCrud";
 
 definePageMeta({
   middleware: "auth",
@@ -49,12 +45,14 @@ definePageMeta({
 });
 
 const { 
-  showError, 
-  showSuccess 
-} = useQuasarUi();
+  songs, 
+  isLoading, 
+  fetchSongs, 
+  addSong 
+} = useSongCrud();
+
 const dialogOpen = ref(false);
 const generalFormRef = ref();
-const fetchedSongs = ref([]);
 
 const songFields = [
   {
@@ -79,22 +77,24 @@ const songFields = [
     name: "difficulty",
     type: "QInput",
     props: {
-      label: "Difficulty (1-5)",
-      type: "number",
-      outlined: true,
-      required: false,
-      min: 1,
-      max: 5  
+        label: "Difficulty (1-5)",
+        type: "number",
+        outlined: true,
+        required: false,
+        min: 1,
+        max: 5
     }
   },
   {
     name: "year",
     type: "QInput",
     props: {
-        label: "Year",
-        type: "number",
-        outlined: true,
-        required: false
+      label: "Year",
+      type: "number",
+      outlined: true,
+      required: false,
+      min: 1900,
+      max: new Date().getFullYear() 
     }
   }
 ];
@@ -135,33 +135,14 @@ const addNewSong = () => {
   dialogOpen.value = true;
 };
 
-const fetchSongs = async () => {
-  try {
-    const songs = await getSongs();
-    fetchedSongs.value = songs || [];
-  } catch (error) {
-    console.error("Error fetching songs:", error);
-  }
-};
-
 async function onGeneralFormSubmit() {
   const result = await generalFormRef.value?.onSubmit();
   if (result?.valid && result.data) {
-    try {
-      const { error } = await createSong(result.data);
-      if (error) {
-        console.error('Error creating song:', error.message);
-        showError('Unexpected error has occurred.');
-      } else {
-        showSuccess('Song created successfully');
-        fetchSongs();
-        setTimeout(()=> {
-          dialogOpen.value = false;
-        }, 2400);
-      }
-    } catch (e) {
-      console.error('Unexpected error:', e);
-      showError('Unexpected error has occurred trying to add new song.');
+    const { success } = await addSong(result.data);
+    if (success) {
+      setTimeout(()=> {
+        dialogOpen.value = false;
+      }, 2400);
     }
   }
 }

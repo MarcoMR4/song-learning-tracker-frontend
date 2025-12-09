@@ -1,5 +1,8 @@
 // composables/useUi.ts
-import { Dialog, Notify } from 'quasar'
+import { 
+  Dialog, 
+  Notify 
+} from 'quasar'
 
 interface dialogInterface {
   title: string;
