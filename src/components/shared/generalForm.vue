@@ -83,8 +83,6 @@ function getRules(field: FieldDef) {
   const userRules = field.props?.rules;
   if (userRules) return userRules;
   const rules = [];
-  // Regla: requerido
-  // Verificamos si es requerido en la definición o en las props
   const isRequired = field.required || field.props?.required;
   
   if (isRequired) {
