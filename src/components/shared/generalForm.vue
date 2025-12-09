@@ -73,10 +73,15 @@ function getRules(field: FieldDef) {
   if (userRules) return userRules;
   const rules = [];
   // Regla: requerido
-  rules.push((val: any) => {
-    if (val === undefined || val === null || val === '') return 'This field is required';
-    return true;
-  });
+  // Verificamos si es requerido en la definición o en las props
+  const isRequired = field.required || field.props?.required;
+  
+  if (isRequired) {
+    rules.push((val: any) => {
+      if (val === undefined || val === null || val === '') return 'This field is required';
+      return true;
+    });
+  }
   // Regla: si es numérico
   if (field.props?.type === 'number' || field.type === 'number') {
     rules.push((val: any) => {
