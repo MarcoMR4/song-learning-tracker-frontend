@@ -4,7 +4,7 @@
       <template v-for="field in fields" :key="field.name">
         <component
           :is="resolveComponent(field)"
-          v-bind="field.props"
+          v-bind="getBoundProps(field)"
           v-model="formData[field.name]"
           :ref="setFieldRef(field.name)"
           :rules="getRules(field)"
@@ -65,6 +65,17 @@ function setFieldRef(name: string) {
   return (el: any) => {
     if (el) fieldRefs[name] = el;
   };
+}
+
+function getBoundProps(field: FieldDef) {
+  const fieldProps = { ...(field.props || {}) };
+  const isRequired = field.required || field.props?.required;
+  
+  if (isRequired && fieldProps.label) {
+    fieldProps.label = `${fieldProps.label}*`;
+  }
+  
+  return fieldProps;
 }
 
 function getRules(field: FieldDef) {
