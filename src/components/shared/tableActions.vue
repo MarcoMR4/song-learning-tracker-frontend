@@ -11,7 +11,14 @@
 <script setup lang="ts">
 
 const props = defineProps({
-  row: { type: Object, required: true }
+    row: { 
+        type: Object, 
+        required: true 
+    },
+    deletingRecordName: {
+        type: String,
+        default: 'this record'
+    }
 });
 
 const emit = defineEmits([
@@ -24,9 +31,10 @@ import { useQuasarUi } from '~/composables/useQuasarUi';
 const { confirmAction } = useQuasarUi();
 
 function onDelete() {
-  confirmAction('Delete confirmation', 'Are you sure you want to delete this record?')
-    .onOk(() => {
-      emit('delete', props.row);
+    console.log('Delete to: ', props.row);
+    confirmAction('Delete confirmation', `Are you sure you want to delete ${props.deletingRecordName}?`)
+        .onOk(() => {
+        emit('delete', props.row);
     });
 }
 

@@ -21,6 +21,7 @@
       <template #body-cell-actions="props">
         <TableActions
           :row="props.row"
+          :deleting-record-name="props.row.name"
           @view="onViewInstrument"
           @edit="onEditInstrument"
           @delete="onDeleteInstrument"
