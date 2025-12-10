@@ -64,12 +64,14 @@ export function useMusicInstrumentCrud() {
     try {
       await deleteInstrumentService(id);
       showSuccess('Instrument deleted successfully');
-      await fetchInstruments();
       return { success: true };
     } catch (e: any) {
       console.error('Error deleting instrument:', e.message || e);
       showError('Failed to delete instrument');
-      return { success: false, error: e };
+      return { 
+        success: false, 
+        error: e 
+      };
     } finally {
       isLoading.value = false;
     }

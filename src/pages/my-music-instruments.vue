@@ -64,7 +64,8 @@ const {
   instruments, 
   isLoading, 
   fetchInstruments, 
-  addInstrument 
+  addInstrument,
+  removeInstrument,
 } = useMusicInstrumentCrud();
 
 const dialogOpen = ref(false);
@@ -146,8 +147,12 @@ function onEditInstrument(row: any) {
 }
 
 async function onDeleteInstrument(row: any) {
-  // Aquí puedes usar removeInstrument si tienes implementado en el CRUD
-  console.log('Delete instrument:', row);
+  const { success } = await removeInstrument(row.id);
+  if (success) {
+    setTimeout(()=> {
+      fetchInstruments();
+    }, 2400);
+  }
 }
 
 </script>

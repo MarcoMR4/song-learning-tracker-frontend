@@ -31,7 +31,6 @@ import { useQuasarUi } from '~/composables/useQuasarUi';
 const { confirmAction } = useQuasarUi();
 
 function onDelete() {
-    console.log('Delete to: ', props.row);
     confirmAction('Delete confirmation', `Are you sure you want to delete ${props.deletingRecordName}?`)
         .onOk(() => {
         emit('delete', props.row);
