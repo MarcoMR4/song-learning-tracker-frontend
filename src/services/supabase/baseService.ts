@@ -1,6 +1,7 @@
-const supabase = useSupabaseClient();
+
 
 export const fetchAll = async (table: string) => {
+  const supabase = useSupabaseClient();
   const { data, error } = await supabase.from(table).select('*')
 
   if (error) throw error
@@ -8,6 +9,7 @@ export const fetchAll = async (table: string) => {
 }
 
 export const fetchById = async (table: string, id: number | string) => {
+  const supabase = useSupabaseClient();
   const { data, error } = await supabase.from(table)
     .select('*')
     .eq('id', id)
@@ -18,6 +20,7 @@ export const fetchById = async (table: string, id: number | string) => {
 }
 
 export const createItem = async (table: string, payload: any) => {
+  const supabase = useSupabaseClient();
   const { data, error } = await supabase.from(table)
     .insert(payload)
     .select()
@@ -27,6 +30,7 @@ export const createItem = async (table: string, payload: any) => {
 }
 
 export const updateItem = async (table: string, id: number | string, payload: any) => {
+  const supabase = useSupabaseClient();
   const { data, error } = await supabase.from(table)
     .update(payload)
     .eq('id', id)
@@ -37,6 +41,7 @@ export const updateItem = async (table: string, id: number | string, payload: an
 }
 
 export const deleteItem = async (table: string, id: number | string) => {
+  const supabase = useSupabaseClient();
   const { error } = await supabase.from(table)
     .delete()
     .eq('id', id)
