@@ -6,12 +6,25 @@
       btn-icon="add"
       @click="addNewInstrument"
     />
-    <q-table :rows="instruments" :columns="columns" row-key="id" :loading="isLoading">
+    <q-table 
+      :rows="instruments" 
+      :columns="columns" 
+      row-key="id" 
+      :loading="isLoading"
+    >
       <template v-slot:no-data>
         <div class="full-width row flex-center text-accent q-gutter-sm">
           <q-icon size="2em" name="sentiment_dissatisfied" />
           <span> No instruments found </span>
         </div>
+      </template>
+      <template #body-cell-actions="props">
+        <TableActions
+          :row="props.row"
+          @view="onViewInstrument"
+          @edit="onEditInstrument"
+          @delete="onDeleteInstrument"
+        />
       </template>
     </q-table>
 
@@ -32,9 +45,10 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted } from "vue";
+
 import { type QTableColumn } from "quasar";
 import TableHeader from "@/components/shared/tableHeader.vue";
+import TableActions from "@/components/shared/tableActions.vue";
 import GeneralDialog from "@/components/shared/generalDialog.vue";
 import GeneralForm from "@/components/shared/generalForm.vue";
 
@@ -92,6 +106,13 @@ const columns: QTableColumn[] = [
     align: "left",
     sortable: true,
   },
+  {
+    name: 'actions',
+    label: 'Actions',
+    field: 'actions',
+    align: 'center',
+    sortable: false,
+  }
 ];
 
 const generalFormRef = ref();
@@ -114,4 +135,18 @@ async function onGeneralFormSubmit() {
     }
   }
 }
+
+function onViewInstrument(row: any) {
+  console.log('View instrument:', row);
+}
+
+function onEditInstrument(row: any) {
+  console.log('Edit instrument:', row);
+}
+
+async function onDeleteInstrument(row: any) {
+  // Aquí puedes usar removeInstrument si tienes implementado en el CRUD
+  console.log('Delete instrument:', row);
+}
+
 </script>
