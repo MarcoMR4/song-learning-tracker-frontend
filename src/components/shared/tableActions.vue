@@ -1,8 +1,8 @@
 <template>
   <q-td>
     <div class="q-gutter-x-sm row items-center justify-center">
-        <q-btn dense flat color="primary" icon="visibility" @click="$emit('view', row)" title="View" />
-        <q-btn dense flat color="secondary" icon="edit" @click="$emit('edit', row)" title="Edit" />
+        <q-btn dense flat color="secondary" icon="visibility" @click="$emit('view', row)" title="View" />
+        <q-btn dense flat color="primary" icon="edit" @click="$emit('edit', row)" title="Edit" />
         <q-btn dense flat color="negative" icon="delete" @click="onDelete" title="Delete" />
     </div>
   </q-td>
