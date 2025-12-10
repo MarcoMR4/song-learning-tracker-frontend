@@ -24,7 +24,12 @@
 </template>
 
 <script setup lang="ts">
-import { QInput, QSelect, QField } from 'quasar';
+
+import { 
+  QInput, 
+  QSelect, 
+  QField 
+} from 'quasar';
 import { useQuasarUi } from '~/composables/useQuasarUi';
 
 interface FieldDef {
@@ -35,9 +40,11 @@ interface FieldDef {
   required?: boolean;
 }
 
+
 const props = defineProps<{
   fields: FieldDef[];
   modelValue?: Record<string, any>;
+  isViewMode?: boolean;
 }>();
 
 const emit = defineEmits(['submit', 'update:modelValue']);
@@ -70,11 +77,12 @@ function setFieldRef(name: string) {
 function getBoundProps(field: FieldDef) {
   const fieldProps = { ...(field.props || {}) };
   const isRequired = field.required || field.props?.required;
-  
   if (isRequired && fieldProps.label) {
     fieldProps.label = `${fieldProps.label}*`;
   }
-  
+  if (props.isViewMode) {
+    fieldProps.readonly = true;
+  }
   return fieldProps;
 }
 
@@ -131,4 +139,5 @@ async function onSubmit() {
 }
 
 defineExpose({ onSubmit });
+
 </script>

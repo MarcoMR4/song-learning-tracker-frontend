@@ -31,15 +31,17 @@
 
     <general-dialog
       v-model="dialogOpen"
-      title="Add New Instrument"
-      show-cancel
-      show-save
+      :title="dialogMode === 'add' ? 'Add New Instrument' : dialogMode === 'edit' ? 'Edit Instrument' : 'View Instrument'"
+      :show-cancel="dialogMode !== 'view'"
+      :show-save="dialogMode !== 'view'"
       @cancel="dialogOpen = false"
       @save="onGeneralFormSubmit"
     >
       <general-form
         ref="generalFormRef"
         :fields="instrumentFields"
+        :modelValue="selectedInstrument"
+        :is-view-mode="dialogMode === 'view'"
       />
     </general-dialog>
   </div>
@@ -55,6 +57,9 @@ import GeneralForm from "@/components/shared/generalForm.vue";
 
 import { useMusicInstrumentCrud } from "@/composables/useMusicInstrumentCrud";
 
+const dialogMode = ref<'add' | 'edit' | 'view'>('add');
+const selectedInstrument = ref<any>(null);
+
 definePageMeta({
   middleware: "auth",
   layout: "system",
@@ -66,6 +71,7 @@ const {
   fetchInstruments, 
   addInstrument,
   removeInstrument,
+  updateInstrument
 } = useMusicInstrumentCrud();
 
 const dialogOpen = ref(false);
@@ -87,7 +93,7 @@ const instrumentFields = [
       label: "Observations",
       type: "textarea",
       outlined: true,
-      required: false
+      required: false,
     },
   },
 ];
@@ -120,30 +126,42 @@ const columns: QTableColumn[] = [
 const generalFormRef = ref();
 
 function addNewInstrument() {
+  dialogMode.value = 'add';
+  selectedInstrument.value = null;
   dialogOpen.value = true;
 }
 
 onMounted(fetchInstruments);
 
 async function onGeneralFormSubmit() {
-  // Validar el formulario manualmente usando la función expuesta
   const result = await generalFormRef.value?.onSubmit();
   if (result?.valid && result.data) {
-    const { success } = await addInstrument(result.data);
+    let success = false;
+    if (dialogMode.value === 'add') {
+      ({ success } = await addInstrument(result.data));
+    } else if (dialogMode.value === 'edit' && selectedInstrument.value) {
+      const { updateInstrument } = useMusicInstrumentCrud();
+      ({ success } = await updateInstrument(selectedInstrument.value.id, result.data));
+    }
     if (success) {
+      fetchInstruments();
       setTimeout(()=> {
         dialogOpen.value = false;
-      }, 1000);
+      }, 2400);
     }
   }
 }
 
 function onViewInstrument(row: any) {
-  console.log('View instrument:', row);
+  dialogMode.value = 'view';
+  selectedInstrument.value = { ...row };
+  dialogOpen.value = true;
 }
 
 function onEditInstrument(row: any) {
-  console.log('Edit instrument:', row);
+  dialogMode.value = 'edit';
+  selectedInstrument.value = { ...row };
+  dialogOpen.value = true;
 }
 
 async function onDeleteInstrument(row: any) {
