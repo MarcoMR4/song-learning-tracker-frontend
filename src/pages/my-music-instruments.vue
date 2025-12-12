@@ -140,7 +140,6 @@ async function onGeneralFormSubmit() {
     if (dialogMode.value === 'add') {
       ({ success } = await addInstrument(result.data));
     } else if (dialogMode.value === 'edit' && selectedInstrument.value) {
-      const { updateInstrument } = useMusicInstrumentCrud();
       ({ success } = await updateInstrument(selectedInstrument.value.id, result.data));
     }
     if (success) {
