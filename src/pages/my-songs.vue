@@ -195,10 +195,7 @@ function onEditSong(row: any) {
 }
 
 async function onDeleteSong(row: any) {
-  const { success } = await removeSong(row.id);
-  if (success) {
-    fetchSongs();
-  }
+  await removeSong(row.id);
 }
 
 onMounted(() => {

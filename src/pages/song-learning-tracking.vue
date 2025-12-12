@@ -232,17 +232,7 @@ function onEditTracking(row: any) {
 }
 
 async function onDeleteTracking(row: any) {
-  const confirmed = await $q.dialog({
-    title: 'Confirm',
-    message: 'Are you sure you want to delete this tracking record?',
-    cancel: true,
-    persistent: true
-  }).onOk(() => true).onCancel(() => false);
-  if (confirmed) {
-    await removeSongTracking(row.id);
-  }
+  await removeSongTracking(row.id);
 }
-import { useQuasar } from 'quasar';
-const $q = useQuasar();
 
 </script>

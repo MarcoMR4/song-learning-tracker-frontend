@@ -65,11 +65,9 @@ export function useSongCrud() {
       await deleteSongService(id);
       showSuccess('Song deleted successfully');
       await fetchSongs();
-      return { success: true };
     } catch (e: any) {
       console.error('Error deleting song:', e.message || e);
       showError('Failed to delete song');
-      return { success: false, error: e };
     } finally {
       isLoading.value = false;
     }

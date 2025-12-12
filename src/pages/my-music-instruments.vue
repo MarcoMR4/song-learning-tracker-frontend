@@ -165,12 +165,7 @@ function onEditInstrument(row: any) {
 }
 
 async function onDeleteInstrument(row: any) {
-  const { success } = await removeInstrument(row.id);
-  if (success) {
-    setTimeout(()=> {
-      fetchInstruments();
-    }, 2400);
-  }
+  await removeInstrument(row.id);
 }
 
 </script>

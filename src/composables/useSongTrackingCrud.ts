@@ -65,11 +65,9 @@ export function useSongTrackingCrud() {
       await deleteSongTrackingService(id);
       showSuccess('Song tracking deleted successfully');
       await fetchSongTrackings();
-      return { success: true };
     } catch (e: any) {
       console.error('Error deleting song tracking:', e.message || e);
       showError('Failed to delete song tracking');
-      return { success: false, error: e };
     } finally {
       isLoading.value = false;
     }
