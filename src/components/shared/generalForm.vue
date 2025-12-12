@@ -1,6 +1,6 @@
 <template>
   <div class="q-pa-sm">
-    <q-form ref="formRef" @submit.prevent="onSubmit">
+    <q-form ref="formRef" @submit.prevent="onValidateForm">
       <template v-for="field in fields" :key="field.name">
         <component
           :is="resolveComponent(field)"
@@ -47,7 +47,7 @@ const props = defineProps<{
   isViewMode?: boolean;
 }>();
 
-const emit = defineEmits(['submit', 'update:modelValue']);
+const emit = defineEmits(['update:modelValue']);
 const { showError } = useQuasarUi();
 
 const formData = reactive({ ...(props.modelValue || {}) });
@@ -152,14 +152,14 @@ async function validateForm() {
     return false;
 }
 
-async function onSubmit() {
-    const result = await validateForm();
-    if (result) {
-        return { valid: true, data: { ...formData } };
-    }
-    return { valid: false };
+async function onValidateForm() {
+  const result = await validateForm();
+  if (result) {
+    return { valid: true, data: { ...formData } };
+  }
+  return { valid: false };
 }
 
-defineExpose({ onSubmit });
+defineExpose({ onValidateForm });
 
 </script>

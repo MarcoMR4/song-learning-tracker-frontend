@@ -134,7 +134,7 @@ function addNewInstrument() {
 onMounted(fetchInstruments);
 
 async function onGeneralFormSubmit() {
-  const result = await generalFormRef.value?.onSubmit();
+  const result = await generalFormRef.value?.onValidateForm();
   if (result?.valid && result.data) {
     let success = false;
     if (dialogMode.value === 'add') {
