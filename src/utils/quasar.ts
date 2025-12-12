@@ -27,13 +27,19 @@ export const quasarComponents = [
   'QList',
   'QItem',
   'QItemSection',
-  'QSpace'
+  'QSpace',
+  'QBanner',
+  'QTd'
 ]
 
 export const quasarPlugins = [
   'Notify',
   'Dialog',
   'Loading'
+]
+
+export const quasarDirectives = [
+  'ClosePopup'
 ]
 
 // Función auxiliar para cargar los objetos reales desde Quasar

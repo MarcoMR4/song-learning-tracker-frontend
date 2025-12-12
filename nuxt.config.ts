@@ -19,7 +19,15 @@ export default defineNuxtConfig({
   ],
   
   supabase: {
-    redirect: false
+    redirect: false,
+    clientOptions: {
+      auth: {
+        flowType: 'pkce',
+        autoRefreshToken: true,
+        detectSessionInUrl: true,
+        persistSession: true,
+      }
+    }
   },
 
   compatibilityDate: '2025-11-01',
