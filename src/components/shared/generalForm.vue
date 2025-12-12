@@ -41,7 +41,6 @@ interface FieldDef {
   required?: boolean;
 }
 
-
 const props = defineProps<{
   fields: FieldDef[];
   modelValue?: Record<string, any>;
@@ -92,12 +91,19 @@ function setFieldRef(name: string) {
 
 function getBoundProps(field: FieldDef) {
   const fieldProps = { ...(field.props || {}) };
+  const isQSelect = field.type === 'QSelect' || field.type === 'select';
   const isRequired = field.required || field.props?.required;
   if (isRequired && fieldProps.label) {
     fieldProps.label = `${fieldProps.label}*`;
   }
   if (props.isViewMode) {
     fieldProps.readonly = true;
+  }
+  // Defaults for QSelect fields
+  if (isQSelect) {
+    if (fieldProps.outlined === undefined) fieldProps.outlined = true;
+    if (fieldProps.emitValue === undefined) fieldProps.emitValue = true;
+    if (fieldProps.mapOptions === undefined) fieldProps.mapOptions = true;
   }
   return fieldProps;
 }

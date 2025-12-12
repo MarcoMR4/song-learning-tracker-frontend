@@ -108,10 +108,7 @@ const trackingFields = computed(() => {
       required: true,
       options: songs.value.map(s => ({ label: s.title, value: s.id })),
       props: {
-        label: "Song",
-        outlined: true,
-        emitValue: true,
-        mapOptions: true,
+        label: "Song"
       },
     },
     {
@@ -120,10 +117,7 @@ const trackingFields = computed(() => {
       required: true,
       options: instruments.value.map(i => ({ label: i.name, value: i.id })),
       props: {
-        label: "Instrument",
-        outlined: true,
-        emitValue: true,
-        mapOptions: true,
+        label: "Instrument"
       },
     },
     {
