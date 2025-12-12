@@ -13,6 +13,16 @@
           <span> No song tracking records found </span>
         </div>
       </template>
+      <template #body-cell-status="props">
+        <q-td>
+          <div>
+            <span class="row justify-center q-gutter-md items-center">
+              <q-icon :name="getStatusIcon(props.row.status)" color="primary" size="1.5em" />
+              <span>{{ getStatusLabel(props.row.status) }}</span>
+            </span>
+          </div>
+        </q-td>
+      </template>
       <template #body-cell-actions="props">
         <TableActions
           :row="props.row"
@@ -59,6 +69,7 @@ import GeneralForm from "@/components/shared/generalForm.vue";
 import { useSongTrackingCrud } from "@/composables/useSongTrackingCrud";
 import { useSongCrud } from "@/composables/useSongCrud";
 import { useMusicInstrumentCrud } from "@/composables/useMusicInstrumentCrud";
+import { SONG_LEARNING_STATUS, type SongLearningStatus } from "@/constants/songLearningStatus";
 
 definePageMeta({
   middleware: "auth",
@@ -124,16 +135,12 @@ const trackingFields = computed(() => {
       name: "status",
       type: "QSelect",
       required: true,
-      options: [
-        'planned', 
-        'learning', 
-        'refining', 
-        'mastered', 
-        'paused'
-      ],
+      options: SONG_LEARNING_STATUS,
       props: {
         label: "Status",
         outlined: true,
+        emitValue: true,
+        mapOptions: true,
       },
     }
   ];
@@ -171,6 +178,16 @@ const columns: QTableColumn[] = [
     sortable: false,
   },
 ];
+
+function getStatusLabel(status: SongLearningStatus) {
+  const found = SONG_LEARNING_STATUS.find(s => s.value === status);
+  return found ? found.label : status;
+}
+
+function getStatusIcon(status: SongLearningStatus) {
+  const found = SONG_LEARNING_STATUS.find(s => s.value === status);
+  return found ? found.icon : 'help_outline';
+}
 
 const addNewTracking = () => {
   dialogMode.value = "add";
@@ -215,7 +232,17 @@ function onEditTracking(row: any) {
 }
 
 async function onDeleteTracking(row: any) {
-  await removeSongTracking(row.id);
+  const confirmed = await $q.dialog({
+    title: 'Confirm',
+    message: 'Are you sure you want to delete this tracking record?',
+    cancel: true,
+    persistent: true
+  }).onOk(() => true).onCancel(() => false);
+  if (confirmed) {
+    await removeSongTracking(row.id);
+  }
 }
+import { useQuasar } from 'quasar';
+const $q = useQuasar();
 
 </script>
