@@ -196,9 +196,9 @@ const addNewTracking = () => {
 };
 
 const getDeletingRecordName = (row: any) => {
-    const songName = row.song?.title || 'Unknown Song';
-    return `Tracking for ${songName}`;
-}
+  const songName = row.song?.title || 'Unknown Song';
+  return `Tracking for ${songName}`;
+};
 
 async function onGeneralFormSubmit() {
   const result = await generalFormRef.value?.onValidateForm();
@@ -227,7 +227,6 @@ function onViewTracking(row: any) {
 function onEditTracking(row: any) {
   dialogMode.value = "edit";
   selectedTracking.value = { ...row };
-  console.log('Editing tracking', selectedTracking.value);
   dialogOpen.value = true;
 }
 

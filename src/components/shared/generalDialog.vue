@@ -80,11 +80,11 @@ defineProps({
   },
   cancelLabel: {
     type: String,
-    default: "Cancelar",
+    default: "Cancel",
   },
   saveLabel: {
     type: String,
-    default: "Guardar",
+    default: "Save",
   },
 });
 
