@@ -1,23 +1,30 @@
+export const fetchAll = async (table: string, options: { select?: string } = {}) => {
+  const supabase = useSupabaseClient()
 
+  const query = supabase.from(table).select(options.select ?? '*')
 
-export const fetchAll = async (table: string) => {
-  const supabase = useSupabaseClient();
-  const { data, error } = await supabase.from(table).select('*')
+  const { data, error } = await query
 
   if (error) throw error
   return data
 }
 
-export const fetchById = async (table: string, id: number | string) => {
-  const supabase = useSupabaseClient();
-  const { data, error } = await supabase.from(table)
-    .select('*')
+
+export const fetchById = async (table: string, id: number | string, options: { select?: string } = {}) => {
+  const supabase = useSupabaseClient()
+
+  const query = supabase
+    .from(table)
+    .select(options.select ?? '*')
     .eq('id', id)
     .single()
 
+  const { data, error } = await query
+
   if (error) throw error
   return data
 }
+
 
 export const createItem = async (table: string, payload: any) => {
   const supabase = useSupabaseClient();

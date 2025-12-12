@@ -8,9 +8,23 @@ import {
 
 const TABLE = 'song_tracking'
 
-export const getSongTrackings = () => fetchAll(TABLE);
+const TRACKING_SELECT = `
+  id,
+  status,
+  created_at,
+  song (
+    id,
+    title
+  ),
+  instrument (
+    id,
+    name
+  )
+`
 
-export const getSongTracking = (id: number) => fetchById(TABLE, id);
+export const getSongTrackings = () => fetchAll(TABLE, { select: TRACKING_SELECT });
+
+export const getSongTracking = (id: number) => fetchById(TABLE, id, { select: TRACKING_SELECT });
 
 export const createSongTracking = (tracking: any) => createItem(TABLE, tracking);
 

@@ -96,6 +96,7 @@ onMounted(async () => {
     fetchSongs(),
     fetchInstruments()
   ]);
+  console.log('Song tracking loaded', songTrackings.value);
 });
 
 // Computed fields to verify options are populated
@@ -124,20 +125,25 @@ const trackingFields = computed(() => {
         emitValue: true,
         mapOptions: true,
       },
-    }
-  ];
-
-  if (dialogMode.value === 'edit' || dialogMode.value === 'view') {
-    fields.push({
+    },
+    {
       name: "status",
-      type: "QInput", 
+      type: "QSelect",
       required: true,
+      options: [
+        'planned', 
+        'learning', 
+        'refining', 
+        'mastered', 
+        'paused'
+      ],
       props: {
         label: "Status",
         outlined: true,
       },
-    } as any);
-  }
+    }
+  ];
+
   return fields;
 });
 
