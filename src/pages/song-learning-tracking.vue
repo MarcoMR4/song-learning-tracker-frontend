@@ -74,8 +74,15 @@ const {
   removeSongTracking 
 } = useSongTrackingCrud();
 
-const { songs, fetchSongs } = useSongCrud();
-const { instruments, fetchInstruments } = useMusicInstrumentCrud();
+const { 
+  songs, 
+  fetchSongs 
+} = useSongCrud();
+
+const { 
+  instruments, 
+  fetchInstruments 
+} = useMusicInstrumentCrud();
 
 const dialogOpen = ref(false);
 const dialogMode = ref<"add" | "edit" | "view">("add");
@@ -131,7 +138,6 @@ const trackingFields = computed(() => {
       },
     } as any);
   }
-  
   return fields;
 });
 

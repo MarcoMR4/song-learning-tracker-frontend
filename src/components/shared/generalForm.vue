@@ -8,6 +8,7 @@
           v-model="formData[field.name]"
           :ref="setFieldRef(field.name)"
           :rules="getRules(field)"
+          :options="field.options"
         >
           <template
             v-if="field.options && (field.type === 'select' || field.type === 'QSelect')"
