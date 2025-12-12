@@ -216,6 +216,7 @@ function onViewTracking(row: any) {
 function onEditTracking(row: any) {
   dialogMode.value = "edit";
   selectedTracking.value = { ...row };
+  console.log('Editing tracking', selectedTracking.value);
   dialogOpen.value = true;
 }
 

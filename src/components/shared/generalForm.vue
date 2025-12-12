@@ -58,8 +58,23 @@ const fieldRefs = reactive<Record<string, any>>({});
 watch(
   () => props.modelValue,
   (val) => {
-    if (val) Object.assign(formData, val);
-  }
+    if (val) {
+      for (const field of props.fields) {
+        if (
+          (field.type === 'QSelect' || field.type === 'select') &&
+          val[field.name] &&
+          typeof val[field.name] === 'object' &&
+          val[field.name] !== null
+        ) {
+          // Si el valor es un objeto, toma el id o value
+          formData[field.name] = val[field.name].id ?? val[field.name].value ?? val[field.name];
+        } else {
+          formData[field.name] = val[field.name];
+        }
+      }
+    }
+  },
+  { immediate: true }
 );
 
 function resolveComponent(field: FieldDef) {
