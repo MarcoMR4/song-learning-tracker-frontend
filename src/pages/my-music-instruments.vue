@@ -105,7 +105,6 @@ const columns: QTableColumn[] = [
     field: "name", 
     align: "left", 
     sortable: true,
-    required: true,
   },
   {
     name: "observations",
