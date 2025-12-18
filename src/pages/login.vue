@@ -7,6 +7,15 @@
                 <q-input filled v-model="credentials.password" label="password" type="password" required class="q-mb-md" />
                 <q-btn label="Login" type="submit" color="primary" class="full-width q-my-md" />
                 </q-form>
+
+                <q-separator spaced />
+                <q-btn
+                    label="Login with Google"
+                    color="secondary"
+                    class="full-width q-my-md"
+                    icon="mdi-google"
+                    @click="loginWithGoogle"
+                />
             </template>
 
             <template #footer>
@@ -28,7 +37,13 @@ definePageMeta({
   layout: 'default'
 });
 
+
 const { login } = useAuth();
+const supabase = useSupabaseClient();
+
+const loginWithGoogle = async () => {
+    await supabase.auth.signInWithOAuth({ provider: 'google' });
+};
 
 const credentials = reactive({
     email: '',
