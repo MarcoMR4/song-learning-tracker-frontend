@@ -24,14 +24,10 @@
 
 const supabase = useSupabaseClient();
 const { showError } = useQuasarUi();
-const config = useRuntimeConfig();
 
 const loginWithGoogle = async () => {
   const { error } = await supabase.auth.signInWithOAuth({ 
-    provider: 'google',
-    options: {
-      redirectTo: config.public.siteUrl || window.location.origin,
-    }
+    provider: 'google'
   });
   if (error) {
     console.error('Error logging in with Google:', error.message);
