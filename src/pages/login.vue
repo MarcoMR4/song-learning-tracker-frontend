@@ -5,11 +5,8 @@
                 <q-form @submit.prevent="loginUser">
                 <q-input filled v-model="credentials.email" label="email" type="email" required class="q-mb-md" />
                 <q-input filled v-model="credentials.password" label="password" type="password" required class="q-mb-md" />
-                <q-btn label="Login" type="submit" color="primary" class="full-width q-my-md" />
+                <q-btn label="Login" type="submit" color="primary" class="full-width q-my-lg" />
                 </q-form>
-
-                <q-separator spaced />
-                <GoogleLogin />
             </template>
 
             <template #footer>
@@ -20,6 +17,7 @@
                 class="full-width bg-secondary"
                 :to="{ path: '/register' }"
                 />
+                <GoogleLogin />
             </template>
         </AuthCard>
     </div>
