@@ -7,6 +7,9 @@
                 <q-input filled v-model="credentials.password" label="password" type="password" required class="q-mb-md" />
                 <q-btn label="Login" type="submit" color="primary" class="full-width q-my-md" />
                 </q-form>
+
+                <q-separator spaced />
+                <GoogleLogin />
             </template>
 
             <template #footer>
@@ -23,10 +26,12 @@
 </template>
 
 <script setup lang="ts">
+import GoogleLogin from '~/components/auth/googleLogin.vue';
 
 definePageMeta({
   layout: 'default'
 });
+
 
 const { login } = useAuth();
 
