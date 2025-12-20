@@ -1,7 +1,7 @@
 <template>
   <q-btn
     no-caps
-    class="google-btn full-width q-my-md"
+    class="google-btn full-width q-mt-lg"
     @click="loginWithGoogle"
   >
     <template #default>
@@ -22,21 +22,19 @@
 <script setup lang="ts">
 
 const supabase = useSupabaseClient();
-const { showError, showSuccess } = useQuasarUi();
+const { showError } = useQuasarUi();
 
 const loginWithGoogle = async () => {
-    const { error } = await supabase.auth.signInWithOAuth({ 
-      provider: 'google',
-      options: {
-        redirectTo: window.location.origin,
-      }
-    });
-    if (error) {
-      console.error('Error logging in with Google:', error.message);
-      showError('An error occurred while logging in with Google. Please try again later.');
-    } else {
-      showSuccess('Successfully logged in with Google.');
+  const { error } = await supabase.auth.signInWithOAuth({ 
+    provider: 'google',
+    options: {
+      redirectTo: '/',
     }
+  });
+  if (error) {
+    console.error('Error logging in with Google:', error.message);
+    showError('An error occurred while logging in with Google. Please try again later.');
+  } 
 };
 
 </script>
