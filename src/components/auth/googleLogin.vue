@@ -21,14 +21,16 @@
 
 <script setup lang="ts">
 
+
 const supabase = useSupabaseClient();
 const { showError } = useQuasarUi();
+const config = useRuntimeConfig();
 
 const loginWithGoogle = async () => {
   const { error } = await supabase.auth.signInWithOAuth({ 
     provider: 'google',
     options: {
-      redirectTo: '/',
+      redirectTo: config.public.siteUrl || window.location.origin,
     }
   });
   if (error) {
