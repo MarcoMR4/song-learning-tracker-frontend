@@ -22,6 +22,7 @@
 <script setup lang="ts">
 
 const supabase = useSupabaseClient();
+const { showError, showSuccess } = useQuasarUi();
 
 const loginWithGoogle = async () => {
     const { error } = await supabase.auth.signInWithOAuth({ 
@@ -32,6 +33,9 @@ const loginWithGoogle = async () => {
     });
     if (error) {
       console.error('Error logging in with Google:', error.message);
+      showError('An error occurred while logging in with Google. Please try again later.');
+    } else {
+      showSuccess('Successfully logged in with Google.');
     }
 };
 
