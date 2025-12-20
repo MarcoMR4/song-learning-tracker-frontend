@@ -9,13 +9,7 @@
                 </q-form>
 
                 <q-separator spaced />
-                <q-btn
-                    label="Login with Google"
-                    color="secondary"
-                    class="full-width q-my-md"
-                    icon="mdi-google"
-                    @click="loginWithGoogle"
-                />
+                <GoogleLogin />
             </template>
 
             <template #footer>
@@ -32,6 +26,7 @@
 </template>
 
 <script setup lang="ts">
+import GoogleLogin from '~/components/auth/googleLogin.vue';
 
 definePageMeta({
   layout: 'default'
@@ -39,11 +34,6 @@ definePageMeta({
 
 
 const { login } = useAuth();
-const supabase = useSupabaseClient();
-
-const loginWithGoogle = async () => {
-    await supabase.auth.signInWithOAuth({ provider: 'google' });
-};
 
 const credentials = reactive({
     email: '',
