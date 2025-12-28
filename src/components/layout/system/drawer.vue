@@ -11,7 +11,7 @@
       side="left"
       elevated
     >
-      <account-name-item />
+      <AccountNameItem />
 
       <q-separator color="white" style="height: 1px" />
       
