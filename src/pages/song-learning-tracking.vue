@@ -69,6 +69,7 @@ import GeneralForm from "@/components/shared/generalForm.vue";
 import { useSongTrackingCrud } from "@/composables/useSongTrackingCrud";
 import { useSongCrud } from "@/composables/useSongCrud";
 import { useMusicInstrumentCrud } from "@/composables/useMusicInstrumentCrud";
+import { useQuasarUi } from '@/composables/useQuasarUi';
 import { SONG_LEARNING_STATUS, type SongLearningStatus } from "@/constants/songLearningStatus";
 
 definePageMeta({
@@ -87,13 +88,17 @@ const {
 
 const { 
   songs, 
-  fetchSongs 
+  fetchSongs, 
+  isLoading: songsLoading
 } = useSongCrud();
 
 const { 
   instruments, 
-  fetchInstruments 
+  fetchInstruments,
+  isLoading: instrumentsLoading
 } = useMusicInstrumentCrud();
+
+const { showWarning } = useQuasarUi();
 
 const dialogOpen = ref(false);
 const dialogMode = ref<"add" | "edit" | "view">("add");
@@ -107,7 +112,6 @@ onMounted(async () => {
     fetchSongs(),
     fetchInstruments()
   ]);
-  console.log('Song tracking loaded', songTrackings.value);
 });
 
 // Computed fields to verify options are populated
@@ -233,5 +237,16 @@ function onEditTracking(row: any) {
 async function onDeleteTracking(row: any) {
   await removeSongTracking(row.id);
 }
+
+watch([songs, instruments, songsLoading, instrumentsLoading], ([newSongs, newInstruments, songsLoadingState, instrumentsLoadingState]) => {
+  if (!songsLoadingState && !instrumentsLoadingState) {
+    if (!newSongs.length || !newInstruments.length) {
+      showWarning('You must save at least one instrument and one song before tracking.');
+      setTimeout(() => {
+        navigateTo('/');
+      }, 2000);
+    }
+  }
+});
 
 </script>
