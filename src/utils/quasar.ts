@@ -29,7 +29,8 @@ export const quasarComponents = [
   'QItemSection',
   'QSpace',
   'QBanner',
-  'QTd'
+  'QTd',
+  'QSpinner'
 ]
 
 export const quasarPlugins = [

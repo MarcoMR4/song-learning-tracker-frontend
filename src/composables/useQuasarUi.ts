@@ -21,6 +21,9 @@ interface notifyInterface {
   timeout?: number;
 }
 
+const BAD_NOTIFY_TIMEOUT = 5000;
+const GOOD_NOTIFY_TIMEOUT = 2000;
+
 export function useQuasarUi() {
   // --- DIALOG GENERAL ---
   const showDialog = ({
@@ -79,7 +82,15 @@ export function useQuasarUi() {
     notify({
       type: 'negative',
       message: msg,
-      timeout: 5000
+      timeout: BAD_NOTIFY_TIMEOUT
+    })
+  }
+
+  const showWarning = (msg: string) => {
+    notify({
+      type: 'warning',
+      message: msg,
+      timeout: BAD_NOTIFY_TIMEOUT
     })
   }
 
@@ -87,7 +98,7 @@ export function useQuasarUi() {
     notify({
       type: 'positive',
       message: msg,
-      timeout: 2000
+      timeout: GOOD_NOTIFY_TIMEOUT
     })
   }
 
@@ -95,6 +106,7 @@ export function useQuasarUi() {
     showDialog,
     confirmAction,
     showError,
-    showSuccess
+    showSuccess,
+    showWarning,
   }
 }

@@ -8,6 +8,7 @@ export function useAuth() {
     } = useQuasarUi();
 
     const successRedirectTimeout = 2300;
+    const successRedirectLogoutTimeout = 500;
 
     const login = async (email: string, password: string) => {
         const { error } = await supabaseAuth.signInWithPassword({ email, password });
@@ -29,7 +30,6 @@ export function useAuth() {
             console.error('Register error:', error.message);
             showError('Registration failed: ' + error.message);
         } else {
-            console.log('Registration successful');
             showSuccess('Registration successful!');
             setTimeout(() => {
                 navigateTo('/login');
@@ -44,11 +44,10 @@ export function useAuth() {
             showError('Logout failed: ' + error.message);
         } 
         else {
-            console.log('Logout successful');
             showSuccess('Logged out successfully');
             setTimeout(() => {
                 navigateTo('/login');
-            }, successRedirectTimeout);
+            }, successRedirectLogoutTimeout);
         }
     };  
 
