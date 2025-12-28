@@ -242,9 +242,7 @@ watch([songs, instruments, songsLoading, instrumentsLoading], ([newSongs, newIns
   if (!songsLoadingState && !instrumentsLoadingState) {
     if (!newSongs.length || !newInstruments.length) {
       showWarning('You must save at least one instrument and one song before tracking.');
-      setTimeout(() => {
-        navigateTo('/');
-      }, 2000);
+      navigateTo('/');
     }
   }
 });

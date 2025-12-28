@@ -5,7 +5,7 @@
                 <q-form @submit.prevent="loginUser">
                     <q-input filled v-model="credentials.email" label="email" type="email" required class="q-mb-md" />
                     <q-input filled v-model="credentials.password" label="password" type="password" required class="q-mb-md" />
-                    <q-btn type="submit" color="primary" class="full-width q-my-lg">
+                    <q-btn type="submit" color="primary" class="full-width q-my-lg" :disable="loadingLogin">
                         <template #default>
                             <q-spinner v-if="loadingLogin" size="20px" color="white" class="q-mr-sm" />
                             Login
