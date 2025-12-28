@@ -5,12 +5,16 @@
       @update:model-value="updateDrawerOpen"
       show-if-above
       persistent
-      :width="200"
+      :width="220"
       :breakpoint="400"
       class="text-white bg-primary"
       side="left"
       elevated
     >
+      <AccountNameItem />
+
+      <q-separator color="white" style="height: 1px" />
+      
       <q-list class="p-mt-lg">
         <q-item
           class="q-item-label clickable"
@@ -81,6 +85,7 @@
 </template>
 
 <script setup lang="ts">
+import AccountNameItem from '@/components/shared/accountNameItem.vue';
 const drawerStore = useDrawerStore();
 
 const { logout } = useAuth();
