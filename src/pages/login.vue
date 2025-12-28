@@ -3,9 +3,14 @@
         <AuthCard>
             <template #form>
                 <q-form @submit.prevent="loginUser">
-                <q-input filled v-model="credentials.email" label="email" type="email" required class="q-mb-md" />
-                <q-input filled v-model="credentials.password" label="password" type="password" required class="q-mb-md" />
-                <q-btn label="Login" type="submit" color="primary" class="full-width q-my-lg" />
+                    <q-input filled v-model="credentials.email" label="email" type="email" required class="q-mb-md" />
+                    <q-input filled v-model="credentials.password" label="password" type="password" required class="q-mb-md" />
+                    <q-btn type="submit" color="primary" class="full-width q-my-lg">
+                        <template #default>
+                            <q-spinner v-if="loadingLogin" size="20px" color="white" class="q-mr-sm" />
+                            Login
+                        </template>
+                    </q-btn>
                 </q-form>
             </template>
 
@@ -30,7 +35,6 @@ definePageMeta({
   layout: 'default'
 });
 
-
 const { login } = useAuth();
 
 const credentials = reactive({
@@ -38,8 +42,17 @@ const credentials = reactive({
     password: ''
 });
 
+const loadingLogin = ref(false);
+
 const loginUser = async () => {
-   await login(credentials.email, credentials.password);
+    loadingLogin.value = true;
+    try {
+        await login(credentials.email, credentials.password);
+    } catch (error) {
+        console.error('Unexpected error in loginUser:', error);
+    } finally {
+        loadingLogin.value = false;
+    }
 };
 
 </script>
