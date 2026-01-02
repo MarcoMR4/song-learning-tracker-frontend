@@ -1,7 +1,6 @@
 <template>
 	<q-card class="q-pa-md q-mb-md">
 		<q-card-section>
-			<div class="text-h6">Seguimiento de canciones por instrumento</div>
 			<VueApexChart
 				v-if="series.length > 0"
 				type="donut"
@@ -9,7 +8,7 @@
 				:options="chartOptions"
 				:series="series"
 			/>
-			<div v-else class="q-mt-md text-grey">No song tracking data available.</div>
+			<div v-else class="q-mt-md text-grey text-center">No song tracking data available.</div>
 		</q-card-section>
 	</q-card>
 </template>
@@ -34,7 +33,7 @@ onMounted(() => {
 const instrumentCounts = computed(() => {
   const counts: Record<string, { name: string, count: number }> = {}
   for (const t of songTrackings.value) {
-    const inst = t.instrument?.name || 'Desconocido'
+    const inst = t.instrument?.name || 'Unknown'
     if (!counts[inst]) counts[inst] = { name: inst, count: 0 }
     counts[inst].count++
   }
@@ -51,17 +50,17 @@ const chartData = computed(() => {
 	} else {
 		const top = sortedInstruments.value.slice(0, 14)
 		const othersCount = sortedInstruments.value.slice(14).reduce((sum, i) => sum + i.count, 0)
-		return [...top, { name: 'Otros', count: othersCount }]
+		return [...top, { name: 'Others', count: othersCount }]             
 	}
 })
 
 const series = computed(() => chartData.value.map(i => i.count))
 
 const chartOptions = computed(() => ({
-	labels: chartData.value.map(i => i.name),
-	legend: { position: 'bottom' },
-	title: { text: 'Seguimientos por instrumento', align: 'center' },
-	responsive: [{ breakpoint: 600, options: { legend: { position: 'bottom' } } }]
+  labels: chartData.value.map(i => i.name),
+  legend: { position: 'bottom' as const },
+  title: { text: 'Song Trackings by Instrument', align: 'center' as const },
+  responsive: [{ breakpoint: 600, options: { legend: { position: 'bottom' as const } } }]
 }))
 
 </script>
