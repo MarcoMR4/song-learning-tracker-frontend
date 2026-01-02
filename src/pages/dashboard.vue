@@ -57,10 +57,26 @@ const chartData = computed(() => {
 const series = computed(() => chartData.value.map(i => i.count))
 
 const chartOptions = computed(() => ({
-  labels: chartData.value.map(i => i.name),
-  legend: { position: 'bottom' as const },
-  title: { text: 'Song Trackings by Instrument', align: 'center' as const },
-  responsive: [{ breakpoint: 600, options: { legend: { position: 'bottom' as const } } }]
+	labels: chartData.value.map(i => i.name),
+	legend: { position: 'bottom' as const },
+	title: { text: 'Song Trackings by Instrument', align: 'center' as const },
+	plotOptions: {
+		pie: {
+			donut: {
+				labels: {
+					show: true,
+					total: {
+						show: true,
+						label: 'Total of trackings',
+						fontSize: '15px',
+						color: '#333',
+						formatter: () => series.value.reduce((a, b) => a + b, 0).toString()
+					}
+				}
+			}
+		}
+	},
+	responsive: [{ breakpoint: 600, options: { legend: { position: 'bottom' as const } } }]
 }))
 
 </script>
