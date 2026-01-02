@@ -30,7 +30,7 @@
         <q-item
           class="q-item-label clickable"
           active-class="q-item-active"
-          to=""
+          to="/dashboard"
         >
           <q-item-section avatar>
             <span class="material-icons text-h5">bar_chart</span>
