@@ -35,24 +35,17 @@ definePageMeta({
   layout: 'default'
 });
 
-const { login } = useAuth();
+const { login, loading } = useAuth();
 
 const credentials = reactive({
     email: '',
     password: ''
 });
 
-const loadingLogin = ref(false);
+const loadingLogin = loading;
 
 const loginUser = async () => {
-    loadingLogin.value = true;
-    try {
-        await login(credentials.email, credentials.password);
-    } catch (error) {
-        console.error('Unexpected error in loginUser:', error);
-    } finally {
-        loadingLogin.value = false;
-    }
+    await login(credentials.email, credentials.password);
 };
 
 </script>
