@@ -7,7 +7,7 @@ export function useAuth() {
         showSuccess
     } = useQuasarUi();
 
-    const successRedirectTimeout = 2300;
+    const successRedirectTimeout = 500;
     const successRedirectLogoutTimeout = 500;
 
     const login = async (email: string, password: string) => {
