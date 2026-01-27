@@ -73,7 +73,7 @@
 
         <q-separator color="white" style="height: 1px" />
 
-        <q-item clickable @click="logoutUser">
+        <q-item clickable @click="logoutUser" :loading="loading" :disable="loading">
           <q-item-section avatar>
             <span class="material-icons text-h5">logout</span>
           </q-item-section>
@@ -88,9 +88,9 @@
 import AccountNameItem from '@/components/shared/accountNameItem.vue';
 const drawerStore = useDrawerStore();
 
-const { logout } = useAuth();
+const { logout, loading } = useAuth();
 
-const { confirmAction, showError, showSuccess } = useQuasarUi();
+const { confirmAction, showError } = useQuasarUi();
 
 const updateDrawerOpen = (val: boolean) => {
   drawerStore.toggleDrawer();
