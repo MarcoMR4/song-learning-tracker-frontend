@@ -8,7 +8,9 @@
     "generate": "nuxt generate",
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare",
-    "generate-supabase-types": "supabase gen types typescript --project-id yanjxckhtubxauenimtg > src/types/database.types.ts"
+    "generate-supabase-types": "supabase gen types typescript --project-id yanjxckhtubxauenimtg > src/types/database.types.ts",
+    "test": "vitest",
+    "test:ui": "vitest --ui"
   },
   "dependencies": {
     "@nuxtjs/supabase": "^2.0.2",
@@ -23,6 +25,10 @@
     "vue3-apexcharts": "^1.10.0"
   },
   "devDependencies": {
-    "sass-embedded": "^1.93.3"
+    "@vitest/ui": "^4.0.18",
+    "@vue/test-utils": "^2.4.6",
+    "jsdom": "^27.4.0",
+    "sass-embedded": "^1.93.3",
+    "vitest": "^4.0.18"
   }
 }
