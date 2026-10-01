@@ -28,6 +28,8 @@ export function useMusicInstrumentCrud() {
   };
 
   const addInstrument = async (instrumentData: any) => {
+    if (isLoading.value) return { success: false, duplicate: true };
+
     isLoading.value = true;
     try {
       await createMusicInstrument(instrumentData);
@@ -44,6 +46,8 @@ export function useMusicInstrumentCrud() {
   };
 
   const updateInstrument = async (id: number, instrumentData: any) => {
+    if (isLoading.value) return { success: false, duplicate: true };
+
     isLoading.value = true;
     try {
       await updateInstrumentService(id, instrumentData);

@@ -53,6 +53,7 @@
           flat
           :label="saveLabel"
           class="bg-primary text-white"
+          :loading="loading"
           @click="$emit('save')"
         />
       </q-card-actions>
@@ -75,6 +76,10 @@ defineProps({
     default: false,
   },
   showSave: {
+    type: Boolean,
+    default: false,
+  },
+  loading: {
     type: Boolean,
     default: false,
   },

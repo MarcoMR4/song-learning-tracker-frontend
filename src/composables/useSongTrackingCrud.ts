@@ -28,6 +28,8 @@ export function useSongTrackingCrud() {
   };
 
   const addSongTracking = async (trackingData: any) => {
+    if (isLoading.value) return { success: false, duplicate: true };
+
     isLoading.value = true;
     try {
       await createSongTracking(trackingData);
@@ -44,6 +46,8 @@ export function useSongTrackingCrud() {
   };
 
   const updateSongTracking = async (id: number, trackingData: any) => {
+    if (isLoading.value) return { success: false, duplicate: true };
+
     isLoading.value = true;
     try {
       await updateSongTrackingService(id, trackingData);

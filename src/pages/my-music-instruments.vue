@@ -34,6 +34,7 @@
       :title="dialogMode === 'add' ? 'Add New Instrument' : dialogMode === 'edit' ? 'Edit Instrument' : 'View Instrument'"
       :show-cancel="dialogMode !== 'view'"
       :show-save="dialogMode !== 'view'"
+      :loading="isLoading"
       @cancel="dialogOpen = false"
       @save="onGeneralFormSubmit"
     >
@@ -143,9 +144,7 @@ async function onGeneralFormSubmit() {
     }
     if (success) {
       fetchInstruments();
-      setTimeout(()=> {
-        dialogOpen.value = false;
-      }, 2400);
+      dialogOpen.value = false;
     }
   }
 }

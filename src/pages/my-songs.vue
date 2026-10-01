@@ -35,6 +35,7 @@
       "
       :show-cancel="dialogMode !== 'view'"
       :show-save="dialogMode !== 'view'"
+      :loading="isLoading"
       @cancel="dialogOpen = false"
       @save="onGeneralFormSubmit"
     >
@@ -175,9 +176,7 @@ async function onGeneralFormSubmit() {
     }
 
     if (success) {
-      setTimeout(() => {
-        dialogOpen.value = false;
-      }, 2400);
+      dialogOpen.value = false;
     }
   }
 }
