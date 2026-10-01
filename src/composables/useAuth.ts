@@ -10,6 +10,8 @@ export function useAuth() {
     const loading = ref(false);
 
     const login = async (email: string, password: string) => {
+        if (loading.value) return;
+
         loading.value = true;
         try {
             const { error } = await supabaseAuth.signInWithPassword({ email, password });
@@ -29,6 +31,8 @@ export function useAuth() {
     };
 
     const register = async (email: string, password: string) => {
+        if (loading.value) return;
+
         loading.value = true;
         try {
             const { error } = await supabaseAuth.signUp({ email, password });
@@ -48,6 +52,8 @@ export function useAuth() {
     };
 
     const logout = async () => {
+        if (loading.value) return;
+
         loading.value = true;
         try {
             const { error } = await supabaseAuth.signOut();

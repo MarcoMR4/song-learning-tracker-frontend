@@ -73,11 +73,17 @@
 
         <q-separator color="white" style="height: 1px" />
 
-        <q-item clickable @click="logoutUser" :loading="loading" :disable="loading">
+        <q-item
+          clickable
+          :disable="loading"
+          :aria-busy="loading"
+          @click="logoutUser"
+        >
           <q-item-section avatar>
-            <span class="material-icons text-h5">logout</span>
+            <q-spinner v-if="loading" size="24px" />
+            <span v-else class="material-icons text-h5">logout</span>
           </q-item-section>
-          <q-item-section> Logout </q-item-section>
+          <q-item-section>{{ loading ? 'Signing out...' : 'Logout' }}</q-item-section>
         </q-item>
       </q-list>
     </q-drawer>
