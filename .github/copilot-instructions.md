@@ -1,0 +1,1 @@
+- Before suggesting changes, check nuxt.config.ts and package.json for existing configurations and conventions.

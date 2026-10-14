@@ -7,7 +7,12 @@
                 <q-input filled v-model="credentials.password" label="password" type="password" required class="q-mb-md" />
                 <q-input filled v-model="credentials.confirm" label="confirm password" type="password" required class="q-mb-md" />
 
-                <q-btn label="Register" type="submit" color="primary" class="full-width q-my-md" />
+                <q-btn type="submit" color="primary" class="full-width q-my-md" :disable="loading">
+                    <template #default>
+                        <q-spinner v-if="loading" size="20px" color="white" class="q-mr-sm" />
+                        Register
+                    </template>
+                </q-btn>
                 </q-form>
             </template>
 
@@ -26,7 +31,7 @@
 
 <script setup lang="ts">
 
-const { register} = useAuth();
+const { register, loading} = useAuth();
 const { showError } = useQuasarUi();
 
 const credentials = reactive({

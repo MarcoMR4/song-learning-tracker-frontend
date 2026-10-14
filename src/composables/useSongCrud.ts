@@ -28,6 +28,8 @@ export function useSongCrud() {
   };
 
   const addSong = async (songData: any) => {
+    if (isLoading.value) return { success: false, duplicate: true };
+
     isLoading.value = true;
     try {
       await createSong(songData);
@@ -44,6 +46,8 @@ export function useSongCrud() {
   };
 
   const updateSong = async (id: number, songData: any) => {
+    if (isLoading.value) return { success: false, duplicate: true };
+
     isLoading.value = true;
     try {
       await updateSongService(id, songData);

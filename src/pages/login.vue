@@ -5,12 +5,13 @@
                 <q-form @submit.prevent="loginUser">
                     <q-input filled v-model="credentials.email" label="email" type="email" required class="q-mb-md" />
                     <q-input filled v-model="credentials.password" label="password" type="password" required class="q-mb-md" />
-                    <q-btn type="submit" color="primary" class="full-width q-my-lg" :disable="loadingLogin">
-                        <template #default>
-                            <q-spinner v-if="loadingLogin" size="20px" color="white" class="q-mr-sm" />
-                            Login
-                        </template>
-                    </q-btn>
+                    <q-btn
+                        type="submit"
+                        color="primary"
+                        label="Login"
+                        class="full-width q-my-lg"
+                        :loading="loading"
+                    />
                 </q-form>
             </template>
 
@@ -35,24 +36,15 @@ definePageMeta({
   layout: 'default'
 });
 
-const { login } = useAuth();
+const { login, loading } = useAuth();
 
 const credentials = reactive({
     email: '',
     password: ''
 });
 
-const loadingLogin = ref(false);
-
 const loginUser = async () => {
-    loadingLogin.value = true;
-    try {
-        await login(credentials.email, credentials.password);
-    } catch (error) {
-        console.error('Unexpected error in loginUser:', error);
-    } finally {
-        loadingLogin.value = false;
-    }
+    await login(credentials.email, credentials.password);
 };
 
 </script>

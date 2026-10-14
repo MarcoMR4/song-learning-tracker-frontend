@@ -65,6 +65,31 @@ npm run preview
 
 For deployment options, check the [Nuxt deployment documentation](https://nuxt.com/docs/getting-started/deployment).
 
+## 🧪 Testing
+
+This project uses [Vitest](https://vitest.dev/) for unit testing.
+
+### Run all tests
+
+```bash
+npm run test
+```
+
+### Run tests with UI
+
+```bash
+npm run test:ui
+```
+
+### Test file structure
+
+- Test files should be named with `.test.ts` or `.test.js` and placed next to the code or inside `src/__tests__/`.
+- Example: `src/utils/quasar.test.ts`
+
+### Mocking
+
+- Use [Vitest mocking utilities](https://vitest.dev/guide/mocking.html) to mock modules or dependencies as needed.
+
 ## 📚 Documentation
 
 - [Validation Reports](/docs/validations/) - Historical validation and update reports
